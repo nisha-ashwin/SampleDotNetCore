@@ -26,16 +26,22 @@ steps:
     projects: '**/*.csproj'
     configuration: 'Release'
     arguments: '--no-restore'
-- task: PublishBuildArtifacts@1
+- task: DotNetCoreCLI@2
+  displayName: 'Publish project'
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+   command: 'publish'
+   arguments:  '--no-build --configuration Release --output $(Build.ArtifactStagingDirectory)/Release'
+   projects: '**/*.csproj'
+   publishWebProjects: false
+   zipAfterPublish: true
 
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish artifact'
+  condition: succeeded()
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
     azureSubscription: 'SampleDotNetCoreServiceCon'
-    appType: 'webApp'
+    appType: webAppLinux
     WebAppName: 'DemoAzureProjectPipeline'
     packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
