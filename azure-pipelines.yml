@@ -39,10 +39,8 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'Publish artifact'
   condition: succeeded()
-- task: AzureRmWebAppDeployment@2
+- task: AzureRMWebAppDeployment@1
   inputs:
-    ConnectionType: 'AzureRM'
-    azureSubscription: 'SampleDotNetCoreServiceCon'
-    appType: webAppLinux
+    ConnectedServiceName: 'SampleDotNetCoreServiceCon'
     WebAppName: 'DemoAzureProjectPipeline'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    Package: '$(System.DefaultWorkingDirectory)/**/*.zip'
