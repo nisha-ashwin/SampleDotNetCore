@@ -43,4 +43,4 @@ steps:
   inputs:
     ConnectedServiceName: 'SampleDotNetCoreServiceCon'
     WebAppName: 'DemoAzureProjectPipeline'
-    Package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    Package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
