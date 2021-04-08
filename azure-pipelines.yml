@@ -39,7 +39,7 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'Publish artifact'
   condition: succeeded()
-- task: AzureRMWebAppDeployment@1
+- task: AzureRMWebAppDeployment@4
   inputs:
     ConnectedServiceName: 'SampleDotNetCoreServiceCon'
     WebAppName: 'DemoAzureProjectPipeline'
